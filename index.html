@@ -1,0 +1,591 @@
+<head>
+  <title>研究生推免系统待录取通知生成器</title>
+  <meta name="description" content="用于生成研究生推免系统待录取通知详细页面，仅供娱乐，请勿用于其他用途，后果由使用者自负">
+</head>
+<body>
+  <style>
+    .input-area input {
+      width: 100%;
+      margin: 4px 2px;
+      padding: 4px 4px;
+      font-size: larger;
+    }
+
+    .input-area p {
+      margin-top: 16px;
+      margin-bottom: 8px;
+      font-size: x-large;
+    }
+
+    @font-face {
+      font-family: 'iconfont';
+      src: url("https://i.alipayobjects.com/common/fonts/rei.woff?20140606") format("woff");
+    }
+
+    .iconfont {
+      font-family: "iconfont";
+      font-size: 16px;
+      font-style: normal;
+    }
+
+    .iconfont {
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-stroke-width: 0.2px;
+    }
+
+    body,
+    div,
+    dl,
+    dt,
+    dd,
+    ul,
+    ol,
+    li,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    pre,
+    code,
+    form,
+    fieldset,
+    legend,
+    input,
+    button,
+    textarea,
+    p,
+    blockquote,
+    th,
+    td {
+      margin: 0;
+      padding: 0;
+    }
+
+    body,
+    button,
+    input,
+    select,
+    textarea {
+      font: 12px/1.5 '微软雅黑';
+    }
+
+    .ui-box a {
+      color: #09f;
+    }
+
+    .ui-box {
+      zoom: 1;
+      font-size: 12px;
+      margin: 0;
+      padding: 0;
+      border-bottom: 0;
+      /*box-shadow: 0px 1px 2px #dadad8;*/
+    }
+
+    .ui-box:after {
+      clear: both;
+      content: " ";
+      display: block;
+      font-size: 0;
+      height: 0;
+      visibility: hidden
+    }
+
+    .ui-box-follow {
+      border-top: 0
+    }
+
+    .ui-box .ui-box-withoutBottom {
+      border-bottom: 0
+    }
+
+    .ui-box-head {
+      border-bottom: 1px solid #ccc;
+      position: relative;
+      padding: 10px 0;
+      height: 16px;
+      line-height: 16px;
+      zoom: 1
+    }
+
+    .ui-box-head .ui-box-head-title {
+      color: #656565;
+      font-size: 18px;
+      font-weight: 700;
+      float: left;
+      display: inline;
+      margin: 0;
+      padding: 0
+    }
+
+    .ui-box-head .ui-box-head-more {
+      float: right
+    }
+
+    .ui-box-head .ui-box-head-text {
+      margin-left: 10px;
+      color: gray;
+      float: left
+    }
+
+    .ui-box-container {
+      background: #fff;
+      /*border-bottom: 1px solid #ccc*/
+    }
+
+    .ui-box-content {
+      padding: 10px
+    }
+
+    .page-content {
+      padding-top: 20px;
+    }
+
+    .page-content .ui-box-head {
+      background: #fff;
+      height: 27px;
+      line-height: 27px;
+    }
+
+    .page-content .ui-box-head .ui-box-head-title {
+      color: #7BAF71;
+      font-size: 18px;
+      font-weight: 700;
+      float: left;
+      display: inline;
+      margin: 0;
+      padding: 0;
+      text-shadow: 0 1px 2px #EEEEEE;
+    }
+
+    .ui-dlist {
+      display: inline-block;
+      color: gray;
+      font-size: 12px;
+      line-height: 2.2
+    }
+
+    .ui-dlist-tit {
+      float: left;
+      width: 40%;
+      text-align: right;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .ui-dlist-det {
+      float: left;
+      width: 60%;
+      text-align: left;
+      margin: 0
+    }
+
+    .ui-dlist-tit .iconfont {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .ui-dlist-det .ui-dlist-subtitle {
+      font-size: 14px;
+    }
+
+    .ui-dlist-det .ui-list {
+      padding: 10px 10px 10px 25px;
+    }
+
+
+    .ui-tiptext-container-message {
+      margin: 10px 25px 20px 25px;
+    }
+
+    .ui-tiptext {
+      margin: 0;
+      color: #4D4D4D;
+      position: relative;
+      font-size: 12px;
+      zoom: 1
+    }
+
+    .ui-tiptext-follow {
+      padding-left: 21px
+    }
+
+    .ui-tiptext-container {
+      padding: 8px 12px;
+      position: relative;
+      zoom: 1
+    }
+
+    .ui-tiptext .iconfont {
+      font-size: 1.33em;
+      line-height: 1em;
+      text-shadow: 0 1px 0 #fff;
+      position: relative;
+      top: 2px;
+      margin-right: 2px
+    }
+
+    .ui-tiptext-icon {
+      display: inline-block;
+      *display: inline;
+      *zoom: 1
+    }
+
+    .ui-tiptext-message .ui-tiptext-icon {
+      color: #68b5e2
+    }
+
+    .ui-tiptext-container-message {
+      word-wrap: break-word;
+      word-break: break-all;
+      border: 1px solid #b2e2ea;
+      background: #e5f2f8
+    }
+
+    .ui-tiptext-success .ui-tiptext-icon {
+      color: #b5de70
+    }
+
+    .ui-tiptext-container-success {
+      background: #E7FFCE;
+      border: 1px solid #B9E2A0
+    }
+
+    .ui-tiptext-error .ui-tiptext-icon {
+      color: #f17975
+    }
+
+    .ui-tiptext-container-error {
+      background: #FDEEE9;
+      border: 1px solid #fadcd3
+    }
+
+    .ui-tiptext-warning .ui-tiptext-icon {
+      color: #f96
+    }
+
+    .ui-tiptext-container-warning {
+      background: #fefea4;
+      border: 1px solid #e6e098
+    }
+
+    .ui-tiptext-question .ui-tiptext-icon {
+      color: #66cae2
+    }
+
+    .ui-tiptext-container-question {
+      border: 1px solid #b2e2ea;
+      background: #e0f4ff
+    }
+
+    .ui-tiptext-stop .ui-tiptext-icon {
+      color: #f17975
+    }
+
+    .ui-tiptext-container-stop {
+      background: #FDEEE9;
+      border: 1px solid #fadcd3
+    }
+
+    .ui-tiptext-wait .ui-tiptext-icon {
+      color: #d1a066
+    }
+
+    .ui-tiptext-container-wait {
+      border: 1px solid #fae3cc;
+      background: #FFF9D9
+    }
+
+    .ui-tiptext-arrowup,
+    .ui-tiptext-arrowup em,
+    .ui-tiptext-arrowup span,
+    .ui-tiptext-arrowleft,
+    .ui-tiptext-arrowleft em,
+    .ui-tiptext-arrowleft span,
+    .ui-tiptext-arrowdown,
+    .ui-tiptext-arrowdown em,
+    .ui-tiptext-arrowdown span {
+      position: absolute;
+      font-size: 14px;
+      font-family: SimSun;
+      font-style: normal;
+      line-height: 1
+    }
+
+    .ui-tiptext-arrowup,
+    .ui-tiptext-arrowleft,
+    .ui-tiptext-arrowdown {
+      height: 10px;
+      width: 16px
+    }
+
+    .ui-tiptext-arrowup {
+      left: 32px;
+      top: -7px
+    }
+
+    .ui-tiptext-arrowup em {
+      top: -1px
+    }
+
+    .ui-tiptext-arrowleft {
+      left: -6px;
+      top: 10px
+    }
+
+    .ui-tiptext-arrowleft em {
+      left: -1px
+    }
+
+    .ui-tiptext-arrowdown {
+      left: 32px;
+      bottom: -3px
+    }
+
+    .ui-tiptext-arrowdown em {
+      top: 1px
+    }
+
+    .ui-tiptext-container-message .ui-tiptext-arrow em {
+      color: #b2e2ea
+    }
+
+    .ui-tiptext-container-message .ui-tiptext-arrow span {
+      color: #e5f2f8
+    }
+
+    .ui-tiptext-container-success .ui-tiptext-arrow em {
+      color: #E1E1CA
+    }
+
+    .ui-tiptext-container-success .ui-tiptext-arrow span {
+      color: #edfed0
+    }
+
+    .ui-tiptext-container-error .ui-tiptext-arrow em {
+      color: #fadcd3
+    }
+
+    .ui-tiptext-container-error .ui-tiptext-arrow span {
+      color: #FDEEE9
+    }
+
+    .ui-tiptext-container-warning .ui-tiptext-arrow em {
+      color: #e6e098
+    }
+
+    .ui-tiptext-container-warning .ui-tiptext-arrow span {
+      color: #fefea4
+    }
+
+    .ui-tiptext-container-question .ui-tiptext-arrow em {
+      color: #b2e2ea
+    }
+
+    .ui-tiptext-container-question .ui-tiptext-arrow span {
+      color: #e0f4ff
+    }
+
+    .ui-tiptext-container-stop .ui-tiptext-arrow em {
+      color: #fadcd3
+    }
+
+    .ui-tiptext-container-stop .ui-tiptext-arrow span {
+      color: #FDEEE9
+    }
+
+    .ui-tiptext-container-wait .ui-tiptext-arrow em {
+      color: #fae3cc
+    }
+
+    .ui-tiptext-container-wait .ui-tiptext-arrow span {
+      color: #FFF9D9
+    }
+
+    .ui-tiptext-close {
+      position: absolute;
+      right: 10px;
+      top: 8px;
+      color: #60A2C5;
+      cursor: pointer
+    }
+
+    .ui-button * {
+      margin: 0;
+      padding: 0
+    }
+
+    .ui-button {
+      display: inline-block;
+      *display: inline;
+      text-align: center;
+      text-decoration: none;
+      vertical-align: middle;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: inherit;
+      font-weight: 700;
+      border-radius: 2px;
+      padding: 0 20px;
+      *zoom: 1;
+      *overflow: visible;
+      background-image: none
+    }
+
+    .ui-button:hover {
+      text-decoration: none;
+      background-image: none
+    }
+
+    input.ui-button-text,
+    button.ui-button-text {
+      *vertical-align: top
+    }
+
+    .ui-button:active {
+      position: relative;
+      top: 1px;
+      box-shadow: 1px 1px 3px #999 inset
+    }
+
+    .ui-button-ldisable,
+    .ui-button-mdisable,
+    .ui-button-sdisable {
+      color: #999;
+      border: 0;
+      background: #cacccd;
+      cursor: default
+    }
+
+    a.ui-button-ldisable,
+    a.ui-button-mdisable,
+    a.ui-button-sdisable,
+    a.ui-button-ldisable:active,
+    a.ui-button-mdisable:active,
+    a.ui-button-sdisable:active,
+    a.ui-button-ldisable:hover,
+    a.ui-button-mdisable:hover,
+    a.ui-button-sdisable:hover {
+      color: #999
+    }
+
+    .ui-button-ldisable {
+      line-height: 32px;
+      height: 32px
+    }
+
+    .ui-button-ldisable,
+    .ui-button-mdisable,
+    .ui-button-sdisable {
+      cursor: default !important
+    }
+
+    .ui-button-ldisable:active,
+    .ui-button-mdisable:active,
+    .ui-button-sdisable:active {
+      position: static;
+      top: 0;
+      box-shadow: none
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <div id="app" style="margin: 16px auto; max-width: 785px;">
+    <div class="ui-box"
+      style="border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); border-bottom: none; border-left: 1px solid rgb(204, 204, 204); border-image: initial; margin-bottom: 16px;">
+      <div class="ui-box-head" style="background: rgb(249, 249, 249); padding-left: 10px; padding-right: 10px;">
+        <h3 class="ui-box-head-title zy-title" style="font-size: 14px; color: rgb(80, 170, 194);">志愿信息</h3>
+      </div>
+      <div class="ui-box-container" style="border-bottom: 1px solid rgb(204, 204, 204);">
+        <div class="ui-box-content">
+          <dl id="ui-dlist" class="ui-dlist">
+            <dt class="ui-dlist-tit">层次：</dt>
+            <dd class="ui-dlist-det"> {{level}}</dd>
+            <dt class="ui-dlist-tit">单位：</dt>
+            <dd class="ui-dlist-det"> {{unit}}</dd>
+            <dt class="ui-dlist-tit">院系：</dt>
+            <dd class="ui-dlist-det"> {{school}}</dd>
+            <dt class="ui-dlist-tit">专业：</dt>
+            <dd class="ui-dlist-det">{{major}}</dd>
+            <dt class="ui-dlist-tit">学习方式：</dt>
+            <dd class="ui-dlist-det">{{type}}</dd>
+            <dt class="ui-dlist-tit">研究方向：</dt>
+            <dd class="ui-dlist-det">{{research_direction}}</dd>
+            <dt class="ui-dlist-tit">导师：</dt>
+            <dd class="ui-dlist-det">{{tutor}}</dd>
+            <dt class="ui-dlist-tit">专项计划类型：</dt>
+            <dd class="ui-dlist-det">{{special_plan_type}}</dd>
+            <dt class="ui-dlist-tit">就业类型：</dt>
+            <dd class="ui-dlist-det">{{employment_type}}</dd>
+          </dl>
+          <div style="clear: both; font-size: 0px; line-height: 0;"></div>
+        </div>
+      </div>
+      <div class="ui-box-head" style="background: rgb(249, 249, 249); padding-left: 10px; padding-right: 10px;">
+        <h3 class="ui-box-head-title" style="font-size: 14px; color: rgb(204, 153, 0);">
+          待录取通知
+        </h3> <span class="ui-box-head-text">
+          接受或拒绝待录取通知后，将无法更改。
+        </span>
+      </div>
+      <div class="ui-box-container" style="border-bottom: 1px solid rgb(204, 204, 204);">
+        <div class="ui-box-content">
+          <p style="color: #848484;"> {{unit}} 招生办 {{send_time}}</p>
+          <div class="ui-tiptext-container ui-tiptext-container-message">
+            <div class="ui-tiptext-arrow ui-tiptext-arrowup"><em>◆</em> <span>◆</span></div>
+            <p class="ui-tiptext ui-tiptext-message">{{notation_text}} </p>
+            <p style="margin: 10px; text-align: center;">
+              <span class="ui-button ui-button-ldisable" style="color:#007f00; border: 1px solid rgb(204, 204, 204);">
+                <i title="接受" class="ui-tiptext-icon iconfont">{{picked}}</i> 
+                <span class="result">您于{{accept_time}}接受了{{unit}}的待录取通知</span>
+              </span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="input-area">
+      <p>请在下方输入自定义内容：</p>
+      <input v-model="level">
+      <input v-model="unit">
+      <input v-model="school">
+      <input v-model="major">
+      <input v-model="type">
+      <input v-model="research_direction">
+      <input v-model="special_plan_type">
+      <input v-model="employment_type">
+      <input v-model="send_time">
+      <input v-model="accept_time">
+      <input v-model="notation_text">
+    </div>
+      <div>
+        <input type="radio" id="yes" value="&#xF049;" v-model="picked" onclick="$('.result')[0].innerHTML=$('.result')[0].innerText.replace('拒绝', '接受');$('.ui-button')[0].style.color='#007F00'">
+        <label for="yes">接受</label>
+        <br>
+        <input type="radio" id="no" value="&#xF045;" v-model="picked" onclick="$('.result')[0].innerHTML=$('.result')[0].innerText.replace('接受', '拒绝');$('.ui-button')[0].style.color='#FF0000'">
+        <label for="no">拒绝</label>
+        <br>
+      </div>
+  </div>
+  <script>
+    let app = new Vue({
+      el: "#app",
+      data: {
+        level: "直博生",
+        unit: "蓝翔高级技工学校",
+        school: "工程机械学院",
+        major: "工程机械技师培训（四年制）",
+        type: "全日制",
+        research_direction: "挖掘机构造与维修",
+        tutor: "唐国强",
+        special_plan_type: "非专项计划",
+        employment_type: "非定向就业",
+        send_time: "2020-10-13 9:34",
+        accept_time: "10月13日 9:36",
+        notation_text: "考生你好！非常高兴的通知你，蓝翔高级技工学校工程机械学院同意拟录取你为我院2021级直博生，请第一时间确定。祝贺你！",
+        picked: ""
+      }
+    })
+  </script>
+</body>
